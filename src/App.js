@@ -4,6 +4,8 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login'
 import SignUp from './components/signup'
+import User from './components/user'
+import Admin from './components/admin'
 
 function App() {
   return (
@@ -21,18 +23,23 @@ function App() {
                     Sign up
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to={'/user'}>
+                    User
+                    
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
         </nav>
-        <div className="auth-wrapper" >
-          <div className="auth-inner">
             <Routes>
-              <Route exact path = "/login" element = {<Login />} />
+              <Route exact path = "/" element = {<Login />} />
+              <Route path = "/login" element = {<Login />} />
               <Route path = "/sign-up" element = {<SignUp />} />
+              <Route path = "/user" element = {<User />} />
+              <Route path = "/admin" element = {<Admin />} />
             </Routes>
-          </div>
-        </div>
       </div>
     </Router>
   )

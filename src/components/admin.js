@@ -1,11 +1,24 @@
-import React, { Component } from 'react'
-export default class Admin extends Component {
+//import React from 'react';
+import { useLocation } from 'react-router-dom'
 
-  render() {
-    return (
-      <form>
-        <h3>Admin</h3>
-      </form>
-    )
-  }
+function adminPage() {
+
+  const location = useLocation;
+
+  return (
+
+    <div className="auth-wrapper" >
+      <div className="auth-inner">
+        <>{location.state}</>
+
+        <h3>Medicines</h3>
+        <h3>Report</h3>
+        <h3>Something</h3>
+
+      </div>
+    </div>
+
+  )
 }
+
+export default adminPage;
