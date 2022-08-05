@@ -26,7 +26,6 @@ body, html, .App, #root, .auth-wrapper {
   justify-content: center;
   flex-direction: column;
   text-align: left;
-  height: 60em;
 }
 .auth-inner {
   width: 450px;
@@ -49,4 +48,20 @@ body, html, .App, #root, .auth-wrapper {
 }
 .custom-control-label {
   font-weight: 400;
+}
+.submitform{
+  margin-top: 10em;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  background-color: pink;
+}
+
+.auth-wrapper-signup {
+  margin-top: 5em;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
 }
