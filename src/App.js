@@ -6,6 +6,7 @@ import Login from './components/login'
 import SignUp from './components/signup'
 import User from './components/user'
 import Admin from './components/admin'
+import Logout from './components/logout';
 
 function App() {
   return (
@@ -26,20 +27,25 @@ function App() {
                 <li className="nav-item">
                   <Link className="nav-link" to={'/user'}>
                     User
-                    
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
+          <div>
+            <Link className="navbar-brand" to={'/logout'}>
+              Logout
+            </Link>
+          </div>
         </nav>
-            <Routes>
-              <Route exact path = "/" element = {<Login />} />
-              <Route path = "/login" element = {<Login />} />
-              <Route path = "/sign-up" element = {<SignUp />} />
-              <Route path = "/user" element = {<User />} />
-              <Route path = "/admin" element = {<Admin />} />
-            </Routes>
+        <Routes>
+          <Route exact path = "/" element = {<Login />} />
+          <Route path = "/login" element = {<Login />} />
+          <Route path = "/sign-up" element = {<SignUp />} />
+          <Route path = "/user" element = {<User />} />
+          <Route path = "/admin" element = {<Admin />} />
+          <Route path = "/logout" element = {<Logout/>}/>
+        </Routes>
       </div>
     </Router>
   )
