@@ -1,4 +1,4 @@
-//import React from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom'
 
 function adminPage() {
@@ -6,7 +6,6 @@ function adminPage() {
   const location = useLocation;
 
   return (
-
     <div className="auth-wrapper" >
       <div className="auth-inner">
         <>{location.state}</>
