@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -48,12 +48,9 @@ const Login = () => {
       res.json()).then((response) => {
         userDetails = response
         if (userDetails.roles[0].name === 'ADMIN') {
-          <Route path='/admin'>
-            <adminPage user = {userDetails}/>
-          </Route>
-         // navigate('/admin', {state: userDetails})
+          navigate('/admin', {state: userDetails})
         } else if (userDetails.roles[0].name === 'USER') {
-          navigate('/user', {state: userDetails})
+          navigate('/user', { userProfile: userDetails })
         } else {
           navigate('/')
         }
