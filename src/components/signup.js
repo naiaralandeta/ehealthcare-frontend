@@ -44,10 +44,6 @@ const SignUp = () => {
     navigate('/api/user');
   }
 
-
-  // Poner los name como estan en el back, crear la variable e intentar conectar con el back para que lo cree
-  // si lo consigo validar los campos necesario y redirigir a la pagina de usuario
-
   return (
     <div className="auth-wrapper-signup" >
       <div className="auth-inner">

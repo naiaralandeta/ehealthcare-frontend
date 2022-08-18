@@ -4,7 +4,7 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login'
 import SignUp from './components/signup'
-import User from './components/user'
+import UserScreen from './components/user'
 import Admin from './components/admin'
 import Logout from './components/logout';
 
@@ -42,7 +42,7 @@ function App() {
           <Route exact path = "/" element = {<Login />} />
           <Route path = "/login" element = {<Login />} />
           <Route path = "/sign-up" element = {<SignUp />} />
-          <Route path = "/user" element = {<User />} />
+          <Route path = "/user" element = {<UserScreen />}/>
           <Route path = "/admin" element = {<Admin />} />
           <Route path = "/logout" element = {<Logout/>}/>
         </Routes>
