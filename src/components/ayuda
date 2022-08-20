@@ -1,0 +1,32 @@
+
+    /*function addMedicine(medicine) {
+        fetch(generalURL + '/cart?id=' + user.state.id, {
+            method: 'POST', headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(medicine)
+        }).then(response => response.json())
+        .then(
+            (result) => {
+                setcart(result)
+            },
+            (error) => {
+                setcart(null);
+            }
+        )
+    }
+    <div>
+                                <input
+                                    type="number"
+                                    onChange={onChange}
+                                    className="form-control"
+                                    placeholder="Insert quantity" min="1" value={1}
+                                />
+                            </div>
+                            <div className="d-grid">
+                                <button type="submit" className="btn btn-primary" >
+                                    Add medicine
+                                </button>
+                            </div>
+                            <button type="submit" className="btn btn-primary">Delete</button>
+                            */
