@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function BankDetails() {
 
-
+    const user = useLocation();
     const [bankdata, setbankdata] = useState([])
     const [state, setstate] = useState([])
     const bankURL = '/api/user/bank-account'
@@ -13,12 +14,11 @@ function BankDetails() {
 
     const getbankdata = () => {
 
-        fetch(bankURL + '?id=' + 3, { method: 'GET' })
+        fetch(bankURL + '?id=' + user.state.id, { method: 'GET' })
             .then(response => response.json())
             .then(
                 (result) => {
                     setbankdata(result)
-                    console.log(result)
                 },
                 (error) => {
                     setbankdata(null);
@@ -26,16 +26,14 @@ function BankDetails() {
             )
     }
 
-    const handleChange = (event) => {
-        this.setState({ value: event.target.value });
-    }
+    const handleChange = event => {
+        setstate(event.target.value);
+    };
 
     const handleSubmit = () => {
-
-        fetch(bankURL + '?id=' + 3 + '&account=' + bankdata.accountNumber + '&funds=' + state, {
+        fetch(bankURL + '?id=' + user.state.id + '&account=' + bankdata.accountNumber + '&funds=' + state, {
             method: 'PUT'
-        });
-        getbankdata()
+        }).then(() => { getbankdata() });
     }
 
     return (
@@ -55,7 +53,6 @@ function BankDetails() {
                         <label>Add funds</label>
                         <input
                             type="number"
-                            value={this.setState}
                             onChange={handleChange}
                             className="form-control"
                             placeholder="Insert quantity" min="0"

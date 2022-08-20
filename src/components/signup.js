@@ -16,6 +16,19 @@ const SignUp = () => {
     funds: ''
   };
 
+  var saveduser = {
+    id: '',
+    username: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    dob: '',
+    phone: '',
+    address: '',
+    roles: [{ id: '', name: '' }]
+  }
+
   const [user, setUser] = useState(initialFormState);
   const navigate = useNavigate();
 
@@ -39,9 +52,11 @@ const SignUp = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(user)
-    });
-    setUser(initialFormState);
-    navigate('/api/user');
+    }).then((res) =>
+      res.json()).then((response) => {
+        saveduser = response
+        navigate('/user', { state: saveduser })
+      });
   }
 
   return (
@@ -125,15 +140,6 @@ const SignUp = () => {
               onChange={handleChange}
               className="form-control"
               placeholder="Account number"
-            />
-          </div>
-          <div className="mb-3">
-            <label>Funds</label>
-            <input
-              type="number" name="funds" value={user.funds || ''}
-              onChange={handleChange}
-              className="form-control"
-              placeholder="Funds"
             />
           </div>
           <div className="d-grid">

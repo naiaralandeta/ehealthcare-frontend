@@ -48,9 +48,9 @@ const Login = () => {
       res.json()).then((response) => {
         userDetails = response
         if (userDetails.roles[0].name === 'ADMIN') {
-          navigate('/admin', {state: userDetails})
+          navigate('/admin')
         } else if (userDetails.roles[0].name === 'USER') {
-          navigate('/user', { userProfile: userDetails })
+          navigate('/user', { state: userDetails })
         } else {
           navigate('/')
         }

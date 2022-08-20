@@ -8,8 +8,8 @@ function UserScreen() {
   return (
     <div class="container">
       <div class="auth-wrapper-signup">
-        <div class="col-10">
-        <UserDetails />
+      <div>
+          <UserDetails />
         </div>
         <div>
           <BankDetails />
