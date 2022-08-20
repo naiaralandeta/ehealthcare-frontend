@@ -1,24 +1,35 @@
 import React from "react";
 import MedicinesListFunction from './medicine';
 import UserDetails from './profile';
-import BankDetails from './bankdetails'
+import BankDetails from './bankdetails';
+import Orders from "./orders";
 
 function UserScreen() {
 
   return (
-    <div class="container">
-      <div class="auth-wrapper-signup">
-      <div>
+
+    <div className="container">
+      <div className="auth-wrapper-signup">
+        <div className="col-8">
           <UserDetails />
         </div>
-        <div>
+        <div className="col-8">
           <BankDetails />
         </div>
-        <div class="col-10">
-        <MedicinesListFunction />
+        <div className="col-8">
+          <Orders />
+        </div>
+        <br />
+        <div className="col-8">
+          <MedicinesListFunction />
         </div>
       </div>
+      <div className="col-4">
+        <h3>Cart</h3>
+      </div>
     </div>
+
+
   );
 }
 

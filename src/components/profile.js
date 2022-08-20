@@ -1,48 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
+import Moment from 'moment';
 
 function UserDetails() {
 
+    Moment.locale('en');
     const user = useLocation();
-    const [userdata, setuserdata] = useState([])
-    const detailsURL = '/api/user/data?id=' + user.state.id;
-    const updateData = '/api/user/update';
-
-    useEffect(() => {
-        getuserdata()
-    }, [])
-
-    const getuserdata = () => {
-        fetch(detailsURL)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    setuserdata(result)
-                },
-                (error) => {
-                    setuserdata(null);
-                }
-            )
-    }
-
-    const handleChange = (event) => {
-        const { name, value } = event.target
-        setuserdata({ ...userdata, [name]: value })
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        await fetch(updateData, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userdata)
-        });
-        setuserdata(userdata)
-    }
 
     return (
         <div class="container">
@@ -70,12 +33,8 @@ function UserDetails() {
                         <p>{user.state.email || ''}</p>
                     </div>
                     <div className="mb-3">
-                        <label>Password</label>
-                        <p>{user.state.password || ''}</p>
-                    </div>
-                    <div className="mb-3">
                         <label>Date of birthday</label>
-                        <p>{user.state.dob || ''}</p>
+                        <p>{Moment(user.state.dob).format("MM-D-YYYY") || ''}</p>
                     </div>
                     <div className="mb-3">
                         <label>Phone</label>

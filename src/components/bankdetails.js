@@ -37,9 +37,9 @@ function BankDetails() {
     }
 
     return (
-        <div class="container">
-            <div class="auth-wrapper-signup">
-                <div class="col-10">
+        <div className="container">
+            <div className="auth-wrapper-signup">
+                <div className="col-10">
                     <h3>Bank Details</h3>
                     <div className="mb-3">
                         <label>Bank Account</label>

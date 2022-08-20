@@ -45,50 +45,21 @@ function UserDetails() {
     }
 
     return (
-        <div class="container">
-            <div class="auth-wrapper-signup">
-                <div class="col-10">
-                    <h3>Profile</h3>
-                    <div className="mb-3">
-                        <label>Reference number</label>
-                        <p>{user.state.id || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Username</label>
-                        <p>{user.state.username || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>First name</label>
-                        <p>{user.state.firstname || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Last name</label>
-                        <p>{user.state.lastname || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Email address</label>
-                        <p>{user.state.email || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Password</label>
-                        <p>{user.state.password || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Date of birthday</label>
-                        <p>{user.state.dob || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Phone</label>
-                        <p>{user.state.phone || ''}</p>
-                    </div>
-                    <div className="mb-3">
-                        <label>Address</label>
-                        <p>{user.state.address || ''}</p>
-                    </div>
-                    <div className="d-grid">
-                        <button type="submit" className="btn btn-primary">
-                            Edit
+        <div className="modal" tabindex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Modal title</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
+                    </div>
+                    <div className="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
