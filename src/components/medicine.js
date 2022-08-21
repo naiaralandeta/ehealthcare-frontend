@@ -3,13 +3,31 @@ import { useLocation } from "react-router-dom";
 
 const MedicinesListFunction = () => {
 
-    const user = useLocation();
-    const [medicineslist, setmedicines] = useState([])
     const medicinesURL = '/api/admin/medicines'
     const generalURL = '/api/user'
+    const user = useLocation();
+    const [medicineslist, setmedicines] = useState([])
     const [quantity, setquantity] = useState([])
     const [search, setsearch] = useState([])
-    const [cartid, setcart] = useState(0)
+
+    const statusOrder = {
+        ordered: 'ORDERED',
+        dispatching: 'DISPATCHING',
+        shipped: 'SHIPPED',
+        delivered: 'DELIVERED',
+    }
+
+    var templateCart = {
+        id: '',
+        owner: '',
+        medname: '',
+        quantity: '',
+        status: '',
+        total: '',
+        date: '',
+        price: '',
+        discount: ''
+      }
 
     const handleChange = event => {
         setsearch(event.target.value);
@@ -63,19 +81,21 @@ const MedicinesListFunction = () => {
     }
 
     const addMedicine = (data) => {
-        data.quantity = Number(quantity)
-        fetch(generalURL + '/cart?id=' + user.state.id + '&cart=' + cartid, {
+
+        templateCart.owner = user.state.id
+        templateCart.medname = data.name
+        templateCart.quantity = Number(quantity)
+        templateCart.price = data.price
+        templateCart.discount = data.discount
+        templateCart.status = statusOrder.ordered
+        templateCart.total = 0.0
+        
+        fetch(generalURL + '/cart', {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(new Array (data))
-        }).then(response => response.json())
-        .then(
-            (result) => {
-                console.log(result.id)
-                
-            }
-        )
+            body: JSON.stringify(templateCart)
+        })
     }
 
     if (!medicineslist) return (<div>No Record Found</div>)
@@ -130,7 +150,6 @@ const MedicinesListFunction = () => {
                             <div className="d-grid">
                                 <button onClick={() => addMedicine(medicine)}>Add</button>
                             </div>
-                            <button type="submit" className="btn btn-primary">Delete</button>
                         </td>
                     </tr>
                 ))}
