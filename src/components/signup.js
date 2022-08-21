@@ -60,7 +60,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className="auth-wrapper-signup" >
+    <div className="auth-wrapper-all" >
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>

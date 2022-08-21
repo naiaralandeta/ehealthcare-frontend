@@ -10,7 +10,7 @@ function Cart() {
     const [quantity, setquantity] = useState([])
     const generalURL = '/api/user'
 
-    const total = 0.0
+    const [total, settotal] = useState([])
 
     useEffect(() => {
         getorderdata()
@@ -23,6 +23,7 @@ function Cart() {
             .then(
                 (result) => {
                     setordersdata(result)
+                    getTotal(result)
                 },
                 (error) => {
                     setordersdata(null)
@@ -30,10 +31,13 @@ function Cart() {
             )
     }
 
-    const onLoad = event => {
-        ordersdata.forEach(order => {
+    const getTotal = (data) => {
+        var total = 0.0
+        data.forEach(order => {
             total += order.total
         });
+
+        settotal(total)
     }
 
     const onChange = event => {
@@ -45,7 +49,7 @@ function Cart() {
     }
 
     const deletemedicine = (id) => {
-        fetch(generalURL + '/cart?cartId=' + id , { method: 'DELETE' })
+        fetch(generalURL + '/cart?cartId=' + id, { method: 'DELETE' })
     }
 
     const checkout = (data) => {
@@ -54,12 +58,12 @@ function Cart() {
             checkouttotal += order.total
         });
 
-        fetch(generalURL + '/checkout?userId=' + data[0].owner + '&total=' + checkouttotal , { 
+        fetch(generalURL + '/checkout?userId=' + data[0].owner + '&total=' + checkouttotal, {
             method: 'POST', headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-     })
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
     }
 
     if (!ordersdata) return (
@@ -69,55 +73,59 @@ function Cart() {
         </div>)
 
     return (
-        <div>
-            <h2> Cart </h2>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Reference</th>
-                        <th>Medicines</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Date</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {ordersdata.map(order => (
-                        <tr key={order.id}>
-                            <td> {order.id} </td>
-                            <td> {order.medname} </td>
-                            <td> {order.quantity}</td>
-                            <td> {order.status} </td>
-                            <td> {order.total} </td>
-                            <td> {Moment(order.date).format("MM-D-YYYY")}</td>
-                            <td>
-                                <div>
-                                    <input
-                                        type="number"
-                                        onChange={onChange}
-                                        className="form-control"
-                                        placeholder="Insert quantity" min="0"
-                                    />
-                                </div>
-                                <div className="d-grid">
-                                    <button onClick={() => updateQuantity(order)}>Update</button>
-                                </div>
-                            </td>
-                            <td>
-                                <button type="submit" className="btn btn-primary" onClick={() => deletemedicine(order.id)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div>
-                <label onLoad={() => onLoad()}>Total = {total} </label>
-            </div>
-            <div>
-            <button type="submit" className="btn btn-primary" onClick={() => checkout(ordersdata)}>Checkout</button>
+        <div className="container">
+            <div className="auth-wrapper-all">
+                <div className="auth-inner-all">
+                    <h2> Cart </h2>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Medicines</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {ordersdata.map(order => (
+                                <tr key={order.id}>
+                                    <td> {order.id} </td>
+                                    <td> {order.medname} </td>
+                                    <td> {order.quantity}</td>
+                                    <td> {order.status} </td>
+                                    <td> {order.total} </td>
+                                    <td> {Moment(order.date).format("MM-D-YYYY")}</td>
+                                    <td>
+                                        <div>
+                                            <input
+                                                type="number"
+                                                onChange={onChange}
+                                                className="form-control"
+                                                placeholder="Insert quantity" min="0"
+                                            />
+                                        </div>
+                                        <div className="d-grid">
+                                            <button onClick={() => updateQuantity(order)}>Update</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="submit" className="btn btn-primary" onClick={() => deletemedicine(order.id)}>Delete</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div>
+                        <label>Total = {total} </label>
+                    </div>
+                    <div>
+                        <button type="submit" className="btn btn-primary" onClick={() => checkout(ordersdata)}>Checkout</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
