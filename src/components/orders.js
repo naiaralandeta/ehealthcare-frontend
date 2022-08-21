@@ -10,10 +10,10 @@ function Orders() {
     const generalURL = '/api/user'
 
     useEffect(() => {
-        getbankdata()
+        getorderdata()
     }, [])
 
-    const getbankdata = () => {
+    const getorderdata = () => {
 
         fetch(generalURL + '/orders?userId=' + user.state.id, { method: 'GET' })
             .then(response => response.json())
@@ -26,6 +26,7 @@ function Orders() {
                 }
             )
     }
+
 
     if (!ordersdata) return (
         <div>
@@ -40,7 +41,8 @@ function Orders() {
                 <thead>
                     <tr>
                         <th>Reference</th>
-                        <th>Medicines (amount)</th>
+                        <th>Medicines</th>
+                        <th>Amount</th>
                         <th>Status</th>
                         <th>Total</th>
                         <th>Date</th>
@@ -50,9 +52,8 @@ function Orders() {
                     {ordersdata.map(order => (
                         <tr key={order.id}>
                             <td> {order.id} </td>
-                            <td> {order.medicine.map(med => (
-                                <ul> {med.name} ({med.quantity})  </ul>
-                            ))}</td>
+                            <td> {order.medname} </td>
+                            <td> {order.quantity}</td>
                             <td> {order.status} </td>
                             <td> {order.total} </td>
                             <td> {Moment(order.date).format("MM-D-YYYY")}</td>

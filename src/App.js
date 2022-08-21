@@ -24,11 +24,6 @@ function App() {
                     Sign up
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/user'}>
-                    User
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>
