@@ -38,32 +38,33 @@ function BankDetails() {
 
     return (
         <div className="container">
-            <div className="auth-wrapper-signup">
-                <div className="col-10">
-                    <h3>Bank Details</h3>
-                    <div className="mb-3">
-                        <label>Bank Account</label>
-                        <p>{bankdata.accountNumber || ''}</p>
+            <div className="auth-wrapper-all">
+                <div className="auth-inner-all">
+                    <div className="col-10">
+                        <h3>Bank Details</h3>
+                        <div className="mb-3">
+                            <label>Bank Account</label>
+                            <p>{bankdata.accountNumber || ''}</p>
+                        </div>
+                        <div className="mb-3">
+                            <label>Funds</label>
+                            <p>{bankdata.funds || ''}</p>
+                        </div>
+                        <div>
+                            <label>Add funds</label>
+                            <input
+                                type="number"
+                                onChange={handleChange}
+                                className="form-control"
+                                placeholder="Insert quantity" min="0"
+                            />
+                        </div>
+                        <div className="d-grid">
+                            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+                                Add funds
+                            </button>
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <label>Funds</label>
-                        <p>{bankdata.funds || ''}</p>
-                    </div>
-                    <div>
-                        <label>Add funds</label>
-                        <input
-                            type="number"
-                            onChange={handleChange}
-                            className="form-control"
-                            placeholder="Insert quantity" min="0"
-                        />
-                    </div>
-                    <div className="d-grid">
-                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-                            Add funds
-                        </button>
-                    </div>
-                    <br /><br />
                 </div>
             </div>
         </div>

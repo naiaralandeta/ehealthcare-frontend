@@ -1,35 +1,63 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import MedicinesListFunction from './medicine';
 import UserDetails from './profile';
-import BankDetails from './bankdetails';
-import Orders from "./orders";
-import Cart from "./cart";
+
 
 function UserScreen() {
 
   return (
-
-    <div className="container">
-      <div className="auth-wrapper-signup">
-        <div className="col-8">
-          <UserDetails />
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+        <div className="container">
+          <Link className="navbar-brand" to={'/login'}>
+            Ehealthcare
+          </Link>
+          <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to={'/medicines'}>
+                  Medicines
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={'/cart'}>
+                  Cart
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={'/orders'}>
+                  Orders
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={'/bank'}>
+                  Bank Information
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to={'/profile'}>
+                  Profile
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="col-8">
-          <BankDetails />
+        <div>
+          <Link className="navbar-brand" to={'/logout'}>
+            Log out
+          </Link>
         </div>
-        <div className="col-8">
-          <Orders />
-        </div>
-        <div className="col-8">
-          <Cart />
-        </div>
-        <br />
-        <div className="col-8">
-          <MedicinesListFunction />
+      </nav>
+      <div className="auth-wrapper-all">
+        <div className="container">
+          <div>
+            <MedicinesListFunction />
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
 
   );
 }

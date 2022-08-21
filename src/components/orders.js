@@ -35,32 +35,36 @@ function Orders() {
         </div>)
 
     return (
-        <div>
-            <h2> Orders </h2>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Reference</th>
-                        <th>Medicines</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {ordersdata.map(order => (
-                        <tr key={order.id}>
-                            <td> {order.id} </td>
-                            <td> {order.medname} </td>
-                            <td> {order.quantity}</td>
-                            <td> {order.status} </td>
-                            <td> {order.total} </td>
-                            <td> {Moment(order.date).format("MM-D-YYYY")}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="container">
+            <div className="auth-wrapper-all">
+                <div className="auth-inner-all">
+                    <h2> Orders </h2>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Medicines</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {ordersdata.map(order => (
+                                <tr key={order.id}>
+                                    <td> {order.id} </td>
+                                    <td> {order.medname} </td>
+                                    <td> {order.quantity}</td>
+                                    <td> {order.status} </td>
+                                    <td> {order.total} </td>
+                                    <td> {Moment(order.date).format("MM-D-YYYY")}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
