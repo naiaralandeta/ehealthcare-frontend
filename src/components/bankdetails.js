@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function BankDetails() {
 
-    const user = useLocation();
+    let { id } = useParams();
     const [bankdata, setbankdata] = useState([])
     const [state, setstate] = useState([])
     const bankURL = '/api/user/bank-account'
@@ -14,7 +15,7 @@ function BankDetails() {
 
     const getbankdata = () => {
 
-        fetch(bankURL + '?id=' + user.state.id, { method: 'GET' })
+        fetch(bankURL + '?id=' + id, { method: 'GET' })
             .then(response => response.json())
             .then(
                 (result) => {
@@ -31,38 +32,77 @@ function BankDetails() {
     };
 
     const handleSubmit = () => {
-        fetch(bankURL + '?id=' + user.state.id + '&account=' + bankdata.accountNumber + '&funds=' + state, {
+        fetch(bankURL + '?id=' + id + '&account=' + bankdata.accountNumber + '&funds=' + state, {
             method: 'PUT'
         }).then(() => { getbankdata() });
     }
 
     return (
-        <div className="container">
-            <div className="auth-wrapper-all">
-                <div className="auth-inner-all">
-                    <div className="col-10">
-                        <h3>Bank Details</h3>
-                        <div className="mb-3">
-                            <label>Bank Account</label>
-                            <p>{bankdata.accountNumber || ''}</p>
-                        </div>
-                        <div className="mb-3">
-                            <label>Funds</label>
-                            <p>{bankdata.funds || ''}</p>
-                        </div>
-                        <div>
-                            <label>Add funds</label>
-                            <input
-                                type="number"
-                                onChange={handleChange}
-                                className="form-control"
-                                placeholder="Insert quantity" min="0"
-                            />
-                        </div>
-                        <div className="d-grid">
-                            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-                                Add funds
-                            </button>
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+                <div className="container">
+                    <Link className="navbar-brand" to={'/login'}>
+                        Ehealthcare
+                    </Link>
+                    <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/medicines/' + id}>
+                                    Medicines
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/cart/' + id}>
+                                    Cart
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/orders/' + id}>
+                                    Orders
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/profile/' + id}>
+                                    Profile
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <Link className="navbar-brand" to={'/logout'}>
+                        Log out
+                    </Link>
+                </div>
+            </nav>
+            <div className="container">
+                <div className="auth-wrapper-all">
+                <span>User number: {id}</span><br/>
+                    <div className="auth-inner-all">
+                        <div className="col-10">
+                            <h3>Bank Details</h3>
+                            <div className="mb-3">
+                                <label>Bank Account</label>
+                                <p>{bankdata.accountNumber || ''}</p>
+                            </div>
+                            <div className="mb-3">
+                                <label>Funds</label>
+                                <p>{bankdata.funds || ''}</p>
+                            </div>
+                            <div>
+                                <label>Add funds</label>
+                                <input
+                                    type="number"
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="Insert quantity" min="0"
+                                />
+                            </div>
+                            <div className="d-grid">
+                                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+                                    Add funds
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

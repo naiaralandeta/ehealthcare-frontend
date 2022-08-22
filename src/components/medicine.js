@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { Link } from 'react-router-dom'
+import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const MedicinesListFunction = () => {
 
+    let { id } = useParams();
     const medicinesURL = '/api/admin/medicines'
     const generalURL = '/api/user'
-    const user = useLocation();
     const [medicineslist, setmedicines] = useState([])
     const [quantity, setquantity] = useState([])
     const [search, setsearch] = useState([])
@@ -83,7 +83,7 @@ const MedicinesListFunction = () => {
 
     const addMedicine = (data) => {
 
-        templateCart.owner = user.state.id
+        templateCart.owner = id
         templateCart.medname = data.name
         templateCart.quantity = Number(quantity)
         templateCart.price = data.price
@@ -99,7 +99,53 @@ const MedicinesListFunction = () => {
         })
     }
 
-    if (!medicineslist) return (<div>No Record Found</div>)
+    if (!medicineslist) return (
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+                <div className="container">
+                    <Link className="navbar-brand" to={'/login'}>
+                        Ehealthcare
+                    </Link>
+                    <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/cart/' + id}>
+                                    Cart
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/orders/' + id}>
+                                    Orders
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/bank/' + id}>
+                                    Bank Information
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/profile/' + id}>
+                                    Profile
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <Link className="navbar-brand" to={'/logout'}>
+                        Log out
+                    </Link>
+                </div>
+            </nav>
+            <div className="container">
+                <div className="auth-wrapper-all">
+                    <div className="auth-inner-all">
+                        <label>No Records Found</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 
     return (
         <div>
@@ -111,22 +157,22 @@ const MedicinesListFunction = () => {
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/medicines'}>
-                                    Medicines
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/user/cart'}>
+                                <Link className="nav-link" to={'/user/cart/' + id}>
                                     Cart
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/orders'}>
+                                <Link className="nav-link" to={'/user/orders/' + id}>
                                     Orders
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/profile'}>
+                                <Link className="nav-link" to={'/user/bank/' + id}>
+                                    Bank Information
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/user/profile/' + id}>
                                     Profile
                                 </Link>
                             </li>
@@ -142,6 +188,7 @@ const MedicinesListFunction = () => {
 
             <div className="container">
                 <div className="auth-wrapper-all">
+                <span>User number: {id}</span><br/>
                     <div className="auth-inner-all">
                         <h2> Medicines </h2>
 
@@ -206,6 +253,5 @@ const MedicinesListFunction = () => {
         </div>
     )
 }
-
 
 export default MedicinesListFunction;

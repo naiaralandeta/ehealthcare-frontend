@@ -1,12 +1,62 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Moment from 'moment';
 import { Link } from 'react-router-dom'
+import { useParams } from "react-router-dom";
+import Modal from 'react-modal';
 
 function UserDetails() {
 
     Moment.locale('en');
-    const user = useLocation();
+    let { id } = useParams();
+    const [userdata, setuserdata] = useState([])
+    const detailsURL = '/api/user/data?id=' + id;
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const updateData = '/api/user/update?id=' + id;
+
+    useEffect(() => {
+        getuserdata()
+    }, [])
+
+    const getuserdata = () => {
+        fetch(detailsURL)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    setuserdata(result)
+                },
+                (error) => {
+                    setuserdata(null);
+                }
+            )
+    }
+
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    const handleChange = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target
+        setuserdata({ ...userdata, [name]: value })
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        await fetch(updateData, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userdata)
+        });
+        setuserdata(userdata)
+        closeModal()
+    }
 
     return (
         <div>
@@ -18,23 +68,23 @@ function UserDetails() {
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/medicines'}>
+                                <Link className="nav-link" to={'/user/medicines/' + id}>
                                     Medicines
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/cart'}>
+                                <Link className="nav-link" to={'/user/cart/' + id}>
                                     Cart
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/orders'}>
+                                <Link className="nav-link" to={'/user/orders/' + id}>
                                     Orders
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/profile'}>
-                                    Profile
+                                <Link className="nav-link" to={'/user/bank/' + id}>
+                                    Bank Information
                                 </Link>
                             </li>
                         </ul>
@@ -48,46 +98,131 @@ function UserDetails() {
             </nav>
             <div className="container">
                 <div className="auth-wrapper-all">
+                <span>User number: {id}</span><br/>
                     <div className="auth-inner-all">
                         <div className="col-10">
                             <h3>Profile</h3>
                             <div className="mb-3">
                                 <label>Reference number</label>
-                                <p>{user.state.id || ''}</p>
+                                <p>{id || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>Username</label>
-                                <p>{user.state.username || ''}</p>
+                                <p>{userdata.username || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>First name</label>
-                                <p>{user.state.firstname || ''}</p>
+                                <p>{userdata.firstname || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>Last name</label>
-                                <p>{user.state.lastname || ''}</p>
+                                <p>{userdata.lastname || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>Email address</label>
-                                <p>{user.state.email || ''}</p>
+                                <p>{userdata.email || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>Date of birthday</label>
-                                <p>{Moment(user.state.dob).format("MM-D-YYYY") || ''}</p>
+                                <p>{Moment(userdata.dob).format("MM-D-YYYY") || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>Phone</label>
-                                <p>{user.state.phone || ''}</p>
+                                <p>{userdata.phone || ''}</p>
                             </div>
                             <div className="mb-3">
                                 <label>Address</label>
-                                <p>{user.state.address || ''}</p>
+                                <p>{userdata.address || ''}</p>
                             </div>
                             <div className="d-grid">
-                                <button type="submit" className="btn btn-primary">
+                                <button className="btn btn-primary" onClick={openModal}>
                                     Edit
                                 </button>
                             </div>
+                            <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+                                <form onSubmit={handleSubmit}>
+                                    <h3>Update informartion</h3>
+                                    <div className="mb-3">
+                                        <label>Username</label>
+                                        <input
+                                            type="text" name="username" value={userdata.username || ''}
+                                            className="form-control"
+                                            placeholder="Username"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>First name</label>
+                                        <input
+                                            type="text" name="firstname" value={userdata.firstname || ''}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="First name"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Last name</label>
+                                        <input type="text" name="lastname" value={userdata.lastname || ''}
+                                            onChange={handleChange}
+                                            className="form-control" placeholder="Last name" />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Email address</label>
+                                        <input
+                                            type="email" name="email" value={userdata.email || ''}
+                                            className="form-control"
+                                            placeholder="Enter email"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Password</label>
+                                        <input
+                                            type="text" name="password" value={userdata.password || ''}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="Enter password"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Date of birthday</label>
+                                        <input
+                                            type="date" name="dob" value={Moment(userdata.dob).format("yyyy-MM-DD") || ''}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="DOB"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Phone</label>
+                                        <input
+                                            type="text" name="phone" value={userdata.phone || ''}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="Phone"
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label>Address</label>
+                                        <input
+                                            type="text" name="address" value={userdata.address || ''}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="Address"
+                                        />
+                                    </div>
+                                    <div className="flex-row">
+                                        <div className="flex-col">
+                                            <button type="submit" className="btn btn-primary">
+                                                Update
+                                            </button>
+                                        </div>
+                                        <div className="flex-col">
+                                            <button className="btn btn-primary" onClick={closeModal}>
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </Modal>
                         </div>
                     </div>
                 </div>
@@ -95,6 +230,5 @@ function UserDetails() {
         </div>
     );
 }
-
 
 export default UserDetails;

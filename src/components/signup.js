@@ -16,19 +16,6 @@ const SignUp = () => {
     funds: ''
   };
 
-  var saveduser = {
-    id: '',
-    username: '',
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    dob: '',
-    phone: '',
-    address: '',
-    roles: [{ id: '', name: '' }]
-  }
-
   const [user, setUser] = useState(initialFormState);
   const navigate = useNavigate();
 
@@ -54,8 +41,8 @@ const SignUp = () => {
       body: JSON.stringify(user)
     }).then((res) =>
       res.json()).then((response) => {
-        saveduser = response
-        navigate('/user', { state: saveduser })
+        console.log(response)
+        navigate('/user/medicines/' + response)
       });
   }
 
