@@ -77,7 +77,6 @@ html,
   justify-content: center;
   flex-direction: column;
   text-align: left;
-  background-color: pink;
 }
 
 .auth-wrapper-all {

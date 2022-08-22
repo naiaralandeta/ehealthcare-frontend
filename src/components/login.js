@@ -50,7 +50,7 @@ const Login = () => {
         if (userDetails.roles[0].name === 'ADMIN') {
           navigate('/admin')
         } else if (userDetails.roles[0].name === 'USER') {
-          navigate('/user', { state: userDetails })
+          navigate('/user/medicines/' + userDetails.id)
         } else {
           navigate('/')
         }

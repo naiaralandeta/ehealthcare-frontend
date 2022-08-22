@@ -4,7 +4,6 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Login from './components/login'
 import SignUp from './components/signup'
-import UserScreen from './components/user'
 import Admin from './components/admin'
 import Logout from './components/logout';
 import MedicinesListFunction from './components/medicine';
@@ -33,17 +32,16 @@ function App() {
           <Route exact path = "/" element = {<Login />} />
           <Route path = "/login" element = {<Login />} />
           <Route path = "/sign-up" element = {<SignUp />} />
-          <Route path = "/user" element = {<UserScreen />}/>
           <Route path = "/admin" element = {<Admin />} />
           <Route path = "/logout" element = {<Logout/>}/>
-          <Route path = "user/medicines" element = {<MedicinesListFunction/>}/>
-          <Route path = "user/profile" element = {<UserDetails/>}/>
-          <Route path = "/cart" element = {<Cart/>}/>
-          <Route path = "/orders" element = {<Orders/>}/>
-          <Route path = "/bank" element = {<BankDetails/>}/>
+          <Route path = "user/medicines/:id" element = {<MedicinesListFunction/>}/>
+          <Route path = "user/profile/:id" element = {<UserDetails/>}/>
+          <Route path = "user/cart/:id" element = {<Cart/>}/>
+          <Route path = "user/orders/:id" element = {<Orders/>}/>
+          <Route path = "user/bank/:id" element = {<BankDetails/>}/>
         </Routes>
       </div>
     </Router>
   )
 }
-export default App
+export default App;
