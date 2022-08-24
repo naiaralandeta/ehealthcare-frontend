@@ -41,28 +41,28 @@ function BankDetails() {
         <div>
             <nav className="navbar navbar-expand-lg navbar-light fixed-top">
                 <div className="container">
-                    <Link className="navbar-brand" to={'/login'}>
+                    <Link className="navbar-brand" to={'/api/login'}>
                         Ehealthcare
                     </Link>
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <div className="collapse navbar-collapse">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/medicines/' + id}>
+                                <Link className="nav-link" to={'/api/user/medicines/' + id}>
                                     Medicines
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/cart/' + id}>
+                                <Link className="nav-link" to={'/api/user/cart/' + id}>
                                     Cart
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/orders/' + id}>
+                                <Link className="nav-link" to={'/api/user/orders/' + id}>
                                     Orders
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to={'/user/profile/' + id}>
+                                <Link className="nav-link" to={'/api/user/profile/' + id}>
                                     Profile
                                 </Link>
                             </li>
@@ -70,7 +70,7 @@ function BankDetails() {
                     </div>
                 </div>
                 <div>
-                    <Link className="navbar-brand" to={'/logout'}>
+                    <Link className="navbar-brand" to={'/api/logout'}>
                         Log out
                     </Link>
                 </div>
