@@ -46,11 +46,17 @@ function Cart() {
     };
 
     const updateQuantity = (data) => {
-        fetch(generalURL + '/cart?cartId=' + data.id + '&quantity=' + quantity, { method: 'PUT' })
+        if (quantity > 0) {
+            fetch(generalURL + '/cart?cartId=' + data.id + '&quantity=' + quantity, { method: 'PUT' })
+                .then(getorderdata());
+        }
     }
 
     const deletemedicine = (id) => {
         fetch(generalURL + '/cart?cartId=' + id, { method: 'DELETE' })
+            .then(
+                getorderdata()
+            );
     }
 
     const checkout = (data) => {
@@ -155,7 +161,7 @@ function Cart() {
             </nav>
             <div className="container">
                 <div className="auth-wrapper-all">
-                <span>User number: {id}</span><br/>
+                    <span>User number: {id}</span><br />
                     <div className="auth-inner-all">
                         <h2> Cart </h2>
                         <table className="table">
@@ -167,7 +173,7 @@ function Cart() {
                                     <th>Status</th>
                                     <th>Total</th>
                                     <th>Date</th>
-                                    <th></th>
+                                    <th>Add total quantity</th>
                                     <th></th>
                                 </tr>
                             </thead>

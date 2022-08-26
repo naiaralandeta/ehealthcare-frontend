@@ -32,9 +32,11 @@ function BankDetails() {
     };
 
     const handleSubmit = () => {
-        fetch(bankURL + '?id=' + id + '&account=' + bankdata.accountNumber + '&funds=' + state, {
-            method: 'PUT'
-        }).then(() => { getbankdata() });
+        if (state > 0) {
+            fetch(bankURL + '?id=' + id + '&account=' + bankdata.accountNumber + '&funds=' + state, {
+                method: 'PUT'
+            }).then(() => { getbankdata() });
+        }
     }
 
     return (
@@ -77,7 +79,7 @@ function BankDetails() {
             </nav>
             <div className="container">
                 <div className="auth-wrapper-all">
-                <span>User number: {id}</span><br/>
+                    <span>User number: {id}</span><br />
                     <div className="auth-inner-all">
                         <div className="col-10">
                             <h3>Bank Details</h3>

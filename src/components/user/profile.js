@@ -45,17 +45,26 @@ function UserDetails() {
     }
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        await fetch(updateData, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userdata)
-        });
-        setuserdata(userdata)
-        closeModal()
+        if (userdata !== []) {
+            event.preventDefault();
+            await fetch(updateData, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userdata)
+            }).then(response => response.json())
+            .then(
+                (result) => {
+                    setuserdata(result)
+                    closeModal()
+                },
+                (error) => {
+                    closeModal()
+                }
+            );
+        }
     }
 
     return (
@@ -98,7 +107,7 @@ function UserDetails() {
             </nav>
             <div className="container">
                 <div className="auth-wrapper-all">
-                <span>User number: {id}</span><br/>
+                    <span>User number: {id}</span><br />
                     <div className="auth-inner-all">
                         <div className="col-10">
                             <h3>Profile</h3>
