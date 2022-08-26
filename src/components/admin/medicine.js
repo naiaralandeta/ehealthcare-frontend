@@ -11,13 +11,10 @@ const AdminMedicinesListFunction = () => {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [modalAddIsOpen, setAddIsOpen] = React.useState(false);
     const [medicinetoupdate, setmedicinetoupdate] = useState([]);
+    const [medicine, setmedicine] = useState([]);
+    const [reference, setreference] = useState([]);
 
-    const handleChange = event => {
-        event.preventDefault();
-        const { name, value } = event.target
-        setmedicinetoupdate({ ...medicinetoupdate, [name]: value })
-    };
-
+    // Get medicines
     useEffect(() => {
         getmedicines()
     }, [])
@@ -35,35 +32,53 @@ const AdminMedicinesListFunction = () => {
             )
     }
 
+    // Add medicine
+    const addMedicine = async (event) => {
+        event.preventDefault();
+
+        console.log(medicine)
+
+        medicine.expire = new Date(medicine.expire)
+        if (medicine.discount === null) {
+            medicine.discount = 0
+        }
+
+        if (medicine !== []) {
+            fetch(generalURL + '/create', {
+                method: 'POST', headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(medicine)
+            }).then(response => response.json())
+                .then(
+                    (result) => {
+                        closeAddModal()
+                        setmedicine([])
+                        getmedicines()
+                    },
+                    (error) => {
+                        setmedicine([])
+                    }
+                );
+        }
+    }
+
+    const addChange = event => {
+        event.preventDefault();
+        const { name, value } = event.target
+        setmedicine({ ...medicine, [name]: value })
+    };
+
     const openAddMedicine = () => {
         setAddIsOpen(true);
     }
 
     function closeAddModal() {
+        setmedicine([])
         setAddIsOpen(false);
     }
 
-    const addMedicine = async (event) => {
-        event.preventDefault();
-        console.log(medicinetoupdate)
-        if(medicinetoupdate.discount === null){
-            medicinetoupdate.discount = 0
-        }
-        medicinetoupdate.expire = new Date(medicinetoupdate.expire)
-        fetch(generalURL + '/create', {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(medicinetoupdate)
-        }).then(response => response.json())
-        .then(
-            () => {
-                closeAddModal()
-                getmedicines()
-            }
-        );
-    }
-
+    // Delete medicine
     const deleteMedicine = (data) => {
 
         fetch(generalURL + '/delete?id=' + data.id, {
@@ -73,12 +88,10 @@ const AdminMedicinesListFunction = () => {
         )
     }
 
-    function openModal() {
-        setIsOpen(true);
-    }
-
-    function closeModal() {
-        setIsOpen(false);
+    // Update
+    const updateMedicine = (data) => {
+        setmedicinetoupdate(data)
+        openModal()
     }
 
     const handleSubmit = async (event) => {
@@ -100,11 +113,21 @@ const AdminMedicinesListFunction = () => {
 
     }
 
-    const updateMedicine = (data) => {
-        setmedicinetoupdate(data)
-        openModal()
+    const handleChange = event => {
+        event.preventDefault();
+        const { name, value } = event.target
+        setmedicinetoupdate({ ...medicinetoupdate, [name]: value })
+    };
+
+    function openModal() {
+        setIsOpen(true);
     }
 
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    // Expired medicines
     const expireMedicines = () => {
 
         fetch(generalURL + '/all', {
@@ -115,6 +138,24 @@ const AdminMedicinesListFunction = () => {
             }
         )
     }
+
+    // No demand medicines
+    const nodemandmedicine = () => {
+
+        if (reference > 0) {
+            fetch(generalURL + '/demand?id=' + reference, {
+                method: 'DELETE'
+            }).then(
+                () => {
+                    getmedicines()
+                }
+            )
+        }
+    }
+
+    const onChange = event => {
+        setreference(event.target.value);
+    };
 
 
     if (!medicineslist) return (
@@ -197,15 +238,15 @@ const AdminMedicinesListFunction = () => {
                                 <h3>Insert data</h3><br />
                                 <div className="mb-3">
                                     <label>Name</label>
-                                    <input type="text" name="name"
-                                        onChange={handleChange}
+                                    <input type="text" name="name" value={medicine.name}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert medicine name" />
                                 </div>
                                 <div className="mb-3">
                                     <label>Company</label>
                                     <input type="text" name="company"
-                                        onChange={handleChange}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert company name" />
                                 </div>
@@ -213,7 +254,7 @@ const AdminMedicinesListFunction = () => {
                                     <label>Price</label>
                                     <input
                                         type="number" name="price"
-                                        onChange={handleChange}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert price"
                                     />
@@ -222,7 +263,7 @@ const AdminMedicinesListFunction = () => {
                                     <label>Quantity</label>
                                     <input
                                         type="number" name="quantity"
-                                        onChange={handleChange}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert quantity"
                                     />
@@ -230,14 +271,14 @@ const AdminMedicinesListFunction = () => {
                                 <div className="mb-3">
                                     <label>Uses</label>
                                     <input type="text" name="uses"
-                                        onChange={handleChange}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert uses description" />
                                 </div>
                                 <div className="mb-3">
                                     <label>Disease</label>
                                     <input type="text" name="disease"
-                                        onChange={handleChange}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert disease description" />
                                 </div>
@@ -245,7 +286,7 @@ const AdminMedicinesListFunction = () => {
                                     <label>Date of expire</label>
                                     <input
                                         type="date" name="expire"
-                                        onChange={handleChange}
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Insert a date"
                                     />
@@ -253,8 +294,8 @@ const AdminMedicinesListFunction = () => {
                                 <div className="mb-3">
                                     <label>Discount</label>
                                     <input
-                                        type="number" name="discount" value={0}
-                                        onChange={handleChange}
+                                        type="number" name="discount"
+                                        onChange={addChange}
                                         className="form-control"
                                         placeholder="Discount"
                                     />
@@ -278,7 +319,15 @@ const AdminMedicinesListFunction = () => {
                             <button onClick={() => expireMedicines()}>Delete expired medicines</button>
                         </div>
                         <div className="d-grid">
-                            <button onClick={() => addMedicine()}>Delete no demand medicines</button>
+                            <div>
+                                <input
+                                    type="number"
+                                    onChange={onChange}
+                                    className="form-control"
+                                    placeholder="Insert reference"
+                                />
+                            </div>
+                            <button onClick={() => nodemandmedicine()}>Delete no demand medicines</button>
                         </div>
                         <table className="table">
                             <thead>

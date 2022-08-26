@@ -91,12 +91,14 @@ const MedicinesListFunction = () => {
         templateCart.status = statusOrder.ordered
         templateCart.total = 0.0
 
-        fetch(generalURL + '/cart', {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(templateCart)
-        })
+        if (templateCart.quantity >= 1) {
+            fetch(generalURL + '/cart', {
+                method: 'POST', headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(templateCart)
+            })
+        }
     }
 
     if (!medicineslist) return (
@@ -188,7 +190,7 @@ const MedicinesListFunction = () => {
 
             <div className="container">
                 <div className="auth-wrapper-all">
-                <span>User number: {id}</span><br/>
+                    <span>User number: {id}</span><br />
                     <div className="auth-inner-all">
                         <h2> Medicines </h2>
 
@@ -205,7 +207,7 @@ const MedicinesListFunction = () => {
                             </div>
                             <div className="flex-col">
                                 <button type="button" className="btn btn-primary" onClick={getmedicines}>
-                                    <i className="fas fa-search"> Reresh search </i>
+                                    <i className="fas fa-search"> Refresh search </i>
                                 </button>
                             </div>
                         </div>
