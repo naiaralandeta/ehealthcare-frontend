@@ -70,7 +70,7 @@ function Cart() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        })
+        }).then(getorderdata())
     }
 
     if (!ordersdata) return (
