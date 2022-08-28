@@ -13,6 +13,8 @@ import Cart from './components/user/cart';
 import BankDetails from './components/user/bankdetails';
 // Admin
 import AdminMedicinesListFunction from './components/admin/medicine';
+import ReportsFunction from './components/admin/reports';
+import OrdersFunction from './components/admin/order';
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
           <Route path = "/api/user/bank/:id" element = {<BankDetails/>}/>
 
           <Route path = "/api/admin/medicines" element = {<AdminMedicinesListFunction/>}/>
+          <Route path = "/api/admin/reports" element = {<ReportsFunction/>}/>
+          <Route path = "/api/admin/orders" element = {<OrdersFunction/>}/>
         </Routes>
       </div>
     </Router>
