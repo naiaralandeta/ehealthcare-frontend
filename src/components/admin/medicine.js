@@ -58,7 +58,7 @@ const AdminMedicinesListFunction = () => {
 
             <div className="flex-row">
                 <div className="flex-col">
-                    <button type="submit" className="btn btn-primary">
+                    <button  type="submit" className="btn btn-primary">
                         Update
                     </button>
                 </div>
@@ -288,8 +288,8 @@ const AdminMedicinesListFunction = () => {
                     <div className="auth-inner-all">
                         <h2> Medicines </h2>
                         <div className="d-grid">
-                            <button onClick={() => openAddMedicine()}>Add medicine</button>
-                        </div>
+                            <button  type="button" className="btn btn-primary" onClick={() => openAddMedicine()}>Add medicine</button>
+                        </div> <br/>
                         <Modal isOpen={modalAddIsOpen} onRequestClose={closeAddModal}>
                             <form onSubmit={addMedicine}>
                                 <h3>Insert data</h3><br />
@@ -359,12 +359,12 @@ const AdminMedicinesListFunction = () => {
                                 </div>
                                 <div className="flex-row">
                                     <div className="flex-col">
-                                        <button type="submit" className="btn btn-primary">
+                                        <button class="btn btn-primary" type="submit" className="btn btn-primary">
                                             Add
                                         </button>
                                     </div>
                                     <div className="flex-col">
-                                        <button className="btn btn-primary" onClick={closeAddModal}>
+                                        <button class="btn btn-primary" className="btn btn-primary" onClick={closeAddModal}>
                                             Cancel
                                         </button>
                                     </div>
@@ -372,18 +372,18 @@ const AdminMedicinesListFunction = () => {
                             </form>
                         </Modal>
                         <div className="d-grid">
-                            <button onClick={() => expireMedicines()}>Delete expired medicines</button>
-                        </div>
+                            <button type="button" className="btn btn-primary" onClick={() => expireMedicines()}>Delete expired medicines</button>
+                        </div> <br/>
                         <div className="d-grid">
                             <div>
                                 <input
                                     type="number"
                                     onChange={onChange}
-                                    className="form-control"
-                                    placeholder="Insert reference"
+                                    className="form-control p-2 font-lg shadow border border-blo"
+                                    placeholder="Insert reference to delete"
                                 />
                             </div>
-                            <button onClick={() => nodemandmedicine()}>Delete no demand medicines</button>
+                            <button type="button" className="btn btn-primary" onClick={() => nodemandmedicine()}><i className="fas fa-search">Delete no demand medicines</i></button>
                         </div>
                         <table className="table">
                             <thead>
@@ -415,10 +415,10 @@ const AdminMedicinesListFunction = () => {
                                         <td> {medicine.quantity} </td>
                                         <td>
                                             <div className="d-grid">
-                                                <button onClick={() => updateMedicine(medicine)}>Update</button>
-                                            </div>
+                                                <button class=".btn-default" onClick={() => updateMedicine(medicine)}>Update</button>
+                                            </div><br/>
                                             <div className="d-grid">
-                                                <button onClick={() => deleteMedicine(medicine)}>Delete</button>
+                                                <button class=".btn-default" onClick={() => deleteMedicine(medicine)}>Delete</button>
                                             </div>
                                         </td>
                                     </tr>

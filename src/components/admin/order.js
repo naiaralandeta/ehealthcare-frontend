@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import Moment from 'moment';
 
@@ -75,7 +75,7 @@ const OrdersFunction = () => {
                                 placeholder="Insert user reference"
                             />
                         </div>
-                        <button onClick={() => consultant()}>Search</button>
+                        <button className=".btn-primary" onClick={() => consultant()}>Search</button>
                     </div>
                 </div>
             </div>
@@ -115,20 +115,19 @@ const OrdersFunction = () => {
                 <div className="auth-wrapper-all">
                     <div className="auth-inner-all">
                         <div>
-                            <label>Orders</label>
+                            <h3>Orders</h3>
                             <div>
                                 <input
                                     type="number"
                                     name="userId"
                                     onChange={handleChange}
-                                    className="form-control"
+                                    className="form-control p-2 font-lg shadow border border-blo"
                                     placeholder="Insert user reference" min={0}
                                 />
-                            </div>
-                            <button onClick={() => consultant()}>Search</button>
-                        </div>
+                            </div><br/>
+                            <button type="button" className="btn btn-primary" onClick={() => consultant()}>Search</button>
+                        </div> <br/>
                         <div>
-                            <h2> Orders </h2>
                             <table className="table">
                                 <thead>
                                     <tr>

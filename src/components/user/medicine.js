@@ -196,18 +196,18 @@ const MedicinesListFunction = () => {
 
                         <div className="flex-row">
                             <div className="flex-col">
-                                <input id="search" className="p-2 font-lg shadow border border-block" type="text" placeholder="Search by uses.." onChange={handleChange} />
-                                <button type="button" className="btn btn-outline-primary" onClick={getuses}> Search </button>
+                                <input id="search" className="p-2 font-lg shadow border border-block" type="text" placeholder="Search by uses.." onChange={handleChange} /><br/><br/>
+                                <button type="button" className="btn btn-primary" onClick={getuses}> Search uses </button>
                             </div>
                             <div className="flex-col">
-                                <input id="search" className="p-2 font-lg shadow border border-block" type="text" placeholder="Search by disease.." onChange={handleChange} />
+                                <input id="search" className="p-2 font-lg shadow border border-block" type="text" placeholder="Search by disease.." onChange={handleChange} /><br/><br/>
                                 <button type="button" className="btn btn-primary" onClick={getdisease}>
-                                    <i className="fas fa-search">Search</i>
+                                    <i className="fas fa-search">Search disease</i>
                                 </button>
                             </div>
                             <div className="flex-col">
                                 <button type="button" className="btn btn-primary" onClick={getmedicines}>
-                                    <i className="fas fa-search"> Refresh search </i>
+                                    <i className="fas fa-search"> Refresh data </i>
                                 </button>
                             </div>
                         </div>
